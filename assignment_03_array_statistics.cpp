@@ -42,3 +42,66 @@
 #include <iostream>
 using namespace std;
 
+int calculatesum(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int calculateaverage(int arr[], int size) {
+    int sum = calculatesum(arr, size);
+    return sum /size;   
+}
+
+int maximum(int arr[], int size) {
+    int max = arr[0];
+    for (int i = 0; i < size; ++i) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+int minimum(int arr[], int size) {
+    int min = arr[0];
+    for (int i = 0; i < size; ++i) {
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+    return min;
+}
+
+int main() {
+    int N;
+    cout << "How many numbers? ";
+    cin >> N;
+
+    if (N <= 0) {
+        cout << "Error: Number of elements must be a positive integer." << endl;
+        return 1;
+    }
+
+    int* arr = new int[N];
+    for (int i = 0; i < N; ++i) {
+        cout << "Enter number " << (i + 1) << ": ";
+        cin >> arr[i];
+    }
+
+    int sum = calculatesum(arr, N);
+    double average = static_cast<double>(sum) / N;
+    int max = maximum(arr, N);
+    int min = minimum(arr, N);
+
+    cout << "\nResults:" << endl;
+    cout << "Sum:     " << sum << endl;
+    cout << "Average: " << average << endl;
+    cout << "Maximum: " << max << endl;
+    cout << "Minimum: " << min << endl;
+
+    delete[] arr; // Free the allocated memory
+    return 0;
+}

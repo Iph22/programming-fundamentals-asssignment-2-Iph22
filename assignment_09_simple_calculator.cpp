@@ -73,3 +73,143 @@
 #include <cmath>
 using namespace std;
 
+double add(double a, double b)
+{
+    return a + b;
+}
+
+double subtract(double a, double b)
+{
+    return a - b;
+}
+
+double multiply(double a, double b)
+{
+    return a * b;
+}
+
+bool divide(double a, double b, double& result)
+{
+    if (b == 0)
+        return false;
+
+    result = a / b;
+    return true;
+}
+
+bool modulus(int a, int b, int& result)
+{
+    if (b == 0)
+        return false;
+
+    result = a % b;
+    return true;
+}
+
+double power(double base, double exponent)
+{
+    return pow(base, exponent);
+}
+
+void printMenu()
+{
+    cout << "============================" << endl;
+    cout << "     SIMPLE CALCULATOR" << endl;
+    cout << "============================" << endl;
+    cout << "1. Addition" << endl;
+    cout << "2. Subtraction" << endl;
+    cout << "3. Multiplication" << endl;
+    cout << "4. Division" << endl;
+    cout << "5. Modulus" << endl;
+    cout << "6. Exponentiation" << endl;
+    cout << "7. Quit" << endl;
+}
+
+int main()
+{
+    int choice = 0;
+
+    cout << fixed << setprecision(2);
+
+    while (choice != 7)
+    {
+        printMenu();
+        cout << "Select an operation (1-7): ";
+        cin >> choice;
+
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Error: please enter a number between 1 and 7." << endl;
+            cout << endl;
+            continue;
+        }
+
+        cout << endl;
+
+        // Modulus needs integers; every other operation uses doubles.
+        if (choice == 5)
+        {
+            int a, b, result;
+
+            if (choice >= 1 && choice <= 6)
+            {
+                cout << "Enter first number : ";
+                cin >> a;
+                cout << "Enter second number: ";
+                cin >> b;
+            }
+
+            if (modulus(a, b, result))
+                cout << "Result: " << a << " % " << b << " = " << result << endl;
+            else
+                cout << "Error: Cannot divide by zero." << endl;
+        }
+        else if (choice >= 1 && choice <= 6)
+        {
+            double a, b;
+            cout << "Enter first number : ";
+            cin >> a;
+            cout << "Enter second number: ";
+            cin >> b;
+
+            switch (choice)
+            {
+                case 1:
+                    cout << "Result: " << a << " + " << b << " = " << add(a, b) << endl;
+                    break;
+                case 2:
+                    cout << "Result: " << a << " - " << b << " = " << subtract(a, b) << endl;
+                    break;
+                case 3:
+                    cout << "Result: " << a << " * " << b << " = " << multiply(a, b) << endl;
+                    break;
+                case 4:
+                {
+                    double result;
+                    if (divide(a, b, result))
+                        cout << "Result: " << a << " / " << b << " = " << result << endl;
+                    else
+                        cout << "Error: Cannot divide by zero." << endl;
+                    break;
+                }
+                case 6:
+                    cout << "Result: " << a << " ^ " << b << " = " << power(a, b) << endl;
+                    break;
+            }
+        }
+        else if (choice == 7)
+        {
+            cout << "Goodbye!" << endl;
+        }
+        else
+        {
+            cout << "Error: invalid choice. Please enter 1-7." << endl;
+        }
+
+        cout << endl;
+    }
+
+    return 0;
+}
